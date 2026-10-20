@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pesquisa acadêmica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+/* Runtime Hub de Pesquisas — motor fixo; tudo que é do estudo vem do config.json */
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface-2:#f0eee8; --ink:#1d2321; --ink-2:#4b5452; --ink-3:#7a8381;
+  --line:#dedad1; --accent:#1f5f5b; --accent-ink:#ffffff; --accent-soft:#e3efed;
+  --alto:#1f6f4a; --alto-soft:#e2f1e8; --inter:#8a6414; --inter-soft:#f6eedb; --baixo:#a2442c; --baixo-soft:#f6e3dd;
+  --focus:#2d7e78; --shadow:0 1px 2px rgba(20,30,28,.06),0 4px 16px rgba(20,30,28,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141816; --surface:#1c211f; --surface-2:#232a27; --ink:#e7ebe9; --ink-2:#b3bcb9; --ink-3:#86908d;
+    --line:#2f3734; --accent:#5fb3aa; --accent-ink:#0f1513; --accent-soft:#1f3532;
+    --alto:#6cc595; --alto-soft:#1c3327; --inter:#e0b65a; --inter-soft:#352c18; --baixo:#e88a6f; --baixo-soft:#3a2420;
+    --focus:#7fd0c6; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141816; --surface:#1c211f; --surface-2:#232a27; --ink:#e7ebe9; --ink-2:#b3bcb9; --ink-3:#86908d;
+  --line:#2f3734; --accent:#5fb3aa; --accent-ink:#0f1513; --accent-soft:#1f3532;
+  --alto:#6cc595; --alto-soft:#1c3327; --inter:#e0b65a; --inter-soft:#352c18; --baixo:#e88a6f; --baixo-soft:#3a2420;
+  --focus:#7fd0c6; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+#contador{white-space:nowrap}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.progress{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.progress>i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 24px;box-shadow:var(--shadow)}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;font-weight:600;line-height:1.25;margin:0 0 12px}
+h1{font-size:28px} h2{font-size:23px} h3{font-size:18px}
+p{margin:0 0 14px;color:var(--ink-2)}
+.lead{font-size:17px;color:var(--ink)}
+.muted{color:var(--ink-3);font-size:14px}
+.ctx{background:var(--surface-2);border-radius:10px;padding:14px 16px;margin:0 0 22px;color:var(--ink-2);font-size:15px}
+.btns{display:flex;gap:10px;justify-content:space-between;margin-top:28px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:11px 20px;border-radius:10px;font-weight:500;min-height:44px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.lk button:focus-visible,.opt:focus-within{outline:2px solid var(--focus);outline-offset:2px}
+.err{color:var(--baixo);font-size:14px;margin-top:12px;min-height:1px}
+/* questões */
+.q{margin:0 0 24px}
+.q-t{font-weight:500;margin-bottom:10px;color:var(--ink)}
+.req{color:var(--baixo)}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;background:var(--surface)}
+.opt input{accent-color:var(--accent);width:18px;height:18px;margin:0;flex:none}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+input[type=text],input[type=email],input[type=number]{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;min-height:44px}
+input[type=text]:focus,input[type=email]:focus,input[type=number]:focus{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.outro{margin-top:8px}
+/* likert */
+.item{padding:18px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0;padding-top:4px}
+.item.miss .item-t{color:var(--baixo)}
+.item-t{margin-bottom:12px;color:var(--ink)}
+.lk{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px}
+.lk button{height:44px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:9px;font-weight:600;font-size:15px;padding:0}
+.lk button:hover{border-color:var(--accent)}
+.lk button[aria-checked=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.anch{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px;margin-top:6px;font-size:11.5px;color:var(--ink-3);line-height:1.25}
+.anch span{text-align:center}
+.anch span:first-child{text-align:left}.anch span:last-child{text-align:right}
+/* ranking */
+.rk{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rk li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.rk .pos{font-weight:600;color:var(--accent);width:22px;text-align:center}
+.rk .lbl{flex:1}
+.rk button{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:8px;width:36px;height:36px}
+/* relatório */
+.rep-h{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
+.dim{border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;break-inside:avoid}
+.dim-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.score{font-family:"Source Serif 4",Georgia,serif;font-size:34px;font-weight:600;line-height:1;color:var(--ink)}
+.score small{font-size:14px;color:var(--ink-3);font-family:"IBM Plex Sans",sans-serif;font-weight:400}
+.badge{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.b-alto{background:var(--alto-soft);color:var(--alto)} .b-intermediario{background:var(--inter-soft);color:var(--inter)} .b-baixo{background:var(--baixo-soft);color:var(--baixo)}
+.lbl-n{font-family:"Source Serif 4",Georgia,serif;font-size:18px;font-weight:600;margin:2px 0 10px;color:var(--ink)}
+.bar{position:relative;height:8px;border-radius:8px;background:linear-gradient(90deg,var(--baixo-soft) 0 40%,var(--inter-soft) 40% 75%,var(--alto-soft) 75% 100%);margin:14px 0 4px}
+.bar>i{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--ink);border:2px solid var(--surface);transform:translate(-50%,-50%)}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3)}
+.subs{margin-top:14px;display:grid;gap:8px}
+.sub{display:grid;grid-template-columns:minmax(120px,1fr) 2fr 38px;gap:10px;align-items:center;font-size:14px;color:var(--ink-2)}
+.sub .track{height:6px;background:var(--surface-2);border-radius:6px;overflow:hidden}
+.sub .track>i{display:block;height:100%;background:var(--accent)}
+.sub b{font-weight:600;color:var(--ink);text-align:right}
+.def{font-size:14px;color:var(--ink-3);margin:6px 0 0}
+.refl{background:var(--accent-soft);border-radius:12px;padding:18px 20px;margin:20px 0}
+.refl h3{color:var(--accent)}
+.refl p{color:var(--ink);margin:0}
+.status{font-size:14px;border-radius:10px;padding:10px 14px;margin:0 0 18px;background:var(--surface-2);color:var(--ink-2)}
+.status.ok{background:var(--alto-soft);color:var(--alto)} .status.warn{background:var(--inter-soft);color:var(--inter)}
+.foot{margin-top:28px;font-size:13px;color:var(--ink-3);text-align:center}
+@media (max-width:480px){
+  .card{padding:22px 16px} h1{font-size:24px}
+  .lk{gap:4px} .lk button{height:42px;font-size:14px}
+  .sub{grid-template-columns:1fr 34px} .sub .track{grid-column:1/-1;order:3}
+}
+@media print{
+  body{background:#fff;color:#000} .top,.progress,.btns,.no-print,.foot{display:none!important}
+  .card{border:0;box-shadow:none;padding:0} .wrap{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="eyebrow" id="eyebrow"></span><span class="muted" id="contador"></span></div>
+  <div class="progress" aria-hidden="true"><i id="barra"></i></div>
+  <main class="card" id="app" aria-live="polite"><p class="muted">Carregando…</p></main>
+  <div class="foot" id="rodape"></div>
+</div>
+
+<!-- Opcional: cole aqui o config.json para um arquivo único (ex.: abrir localmente). Vazio = busca config.json. -->
+<script type="application/json" id="config-embutido"></script>
+
+<script>
+(function(){
+'use strict';
+var C = null, S = null, KEY = '';
+var $app = document.getElementById('app');
+
+/* ---------- utilidades ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function paras(t){return String(t||'').split(/\n\s*\n/).map(function(p){return '<p>'+esc(p).replace(/\n/g,'<br>')+'</p>';}).join('');}
+function uuid(){ if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16);}); }
+function hash(str){var h=1779033703^str.length;for(var i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19;}return h>>>0;}
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function shuffle(a,r){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function fmt(v){return (v==null||isNaN(v))?'—':v.toFixed(1).replace('.',',');}
+function mean(a){a=a.filter(function(x){return x!=null&&!isNaN(x);});return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null;}
+function round2(v){return v==null?null:Math.round(v*100)/100;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function clearSave(){try{localStorage.removeItem(KEY);}catch(e){}}
+function blocoById(id){for(var i=0;i<C.blocos.length;i++) if(C.blocos[i].id===id) return C.blocos[i]; return null;}
+function condOk(c){ if(!c||!c.perguntaId) return true; var v=S.respostas[c.perguntaId];
+  return Array.isArray(c.valor)? c.valor.indexOf(v)>=0 : String(v)===String(c.valor); }
+function pontos(){return (C.escala&&C.escala.pontos)||[1,2,3,4,5,6,7];}
+function maxP(){var p=pontos();return Math.max.apply(null,p);} function minP(){var p=pontos();return Math.min.apply(null,p);}
+
+/* ---------- carga do config ---------- */
+function carregar(){
+  var emb = document.getElementById('config-embutido').textContent.trim();
+  if (emb) { try { return Promise.resolve(JSON.parse(emb)); } catch(e){ return Promise.reject(e); } }
+  var e = new URLSearchParams(location.search).get('e');
+  var url = e ? ('./estudos/'+encodeURIComponent(e)+'/config.json') : './config.json';
+  return fetch(url,{cache:'no-store'}).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status+' em '+url); return r.json(); });
+}
+
+/* ---------- estado e aleatorização ---------- */
+function novoEstado(){
+  var rid = uuid(), r = rng(hash(rid));
+  var ordem = C.blocos.map(function(b){return b.id;});
+  if (C.aleatorizarBlocos){
+    var slots=[], ids=[];
+    C.blocos.forEach(function(b,i){ if(b.tipo==='escala' && !b.fixarPosicao){ slots.push(i); ids.push(b.id);} });
+    var emb = shuffle(ids,r); slots.forEach(function(pos,k){ ordem[pos]=emb[k]; });
+  }
+  var ordemItens = {};
+  C.blocos.forEach(function(b){
+    if (b.tipo==='escala'){ var ii=b.itens.map(function(x){return x.id;});
+      ordemItens[b.id] = (C.aleatorizarItens && !b.fixarItens) ? shuffle(ii,r) : ii; }
+    if (b.tipo==='ranking'){ ordemItens[b.id] = shuffle((b.opcoes||[]).map(function(o){return o.id;}), r); }
+  });
+  return {v:1, estudo:C.estudo, versao:C.versao, rid:rid, ordem:ordem, ordemItens:ordemItens, respostas:{}, pos:0, inicio:new Date().toISOString(), fim:null, enviado:false};
+}
+function visiveis(){ return S.ordem.map(blocoById).filter(function(b){ return b && condOk(b.condicao); }); }
+
+/* ---------- render ---------- */
+function render(manterScroll){
+  var vis = visiveis(); if (S.pos >= vis.length) return concluir('completo');
+  var b = vis[S.pos];
+  document.getElementById('barra').style.width = Math.round(100*S.pos/vis.length)+'%';
+  var esc_ = vis.filter(function(x){return x.tipo==='escala';});
+  var ne = esc_.indexOf(b);
+  document.getElementById('contador').textContent = ne>=0 ? ('parte '+(ne+1)+' de '+esc_.length) : '';
+  var h = '';
+  if (b.tipo==='consentimento') h = rConsent(b);
+  else if (b.tipo==='perguntas') h = rPerguntas(b);
+  else if (b.tipo==='info') h = '<h2>'+esc(b.titulo||'')+'</h2>'+paras(b.texto);
+  else if (b.tipo==='escala') h = rEscala(b, ne, esc_.length);
+  else if (b.tipo==='ranking') h = rRanking(b);
+  var avancar = b.tipo==='consentimento' ? esc(b.rotuloAceite||'Concordo') : (S.pos===vis.length-1 ? 'Concluir' : 'Avançar');
+  h += '<div class="err" id="err" role="alert"></div><div class="btns">'
+     + (S.pos>0 ? '<button class="btn" id="voltar" type="button">Voltar</button>' : '<span></span>')
+     + '<button class="btn primary" id="avancar" type="button">'+avancar+'</button></div>';
+  $app.innerHTML = h;
+  bind(b);
+  if (manterScroll) return;
+  window.scrollTo({top:0,behavior:'smooth'});
+  var f = $app.querySelector('h1,h2'); if (f){ f.setAttribute('tabindex','-1'); f.focus({preventScroll:true}); }
+}
+function rConsent(b){
+  var top = S.pos===0 ? '<h1>'+esc(C.titulo)+'</h1>'+(C.intro?'<p class="lead">'+esc(C.intro)+'</p>':'') : '';
+  return top + '<h2>'+esc(b.titulo||'')+'</h2>' + paras(b.texto);
+}
+function rQuestao(q){
+  var v = S.respostas[q.id], h = '<div class="q" data-q="'+esc(q.id)+'"><div class="q-t" id="lbl_'+esc(q.id)+'">'+esc(q.pergunta)+(q.obrigatorio?' <span class="req" aria-hidden="true">*</span>':'')+'</div>';
+  if (q.tipo==='single'){
+    h += '<div class="opts" role="radiogroup" aria-labelledby="lbl_'+esc(q.id)+'">';
+    (q.opcoes||[]).forEach(function(o){ var sel = String(v)===String(o.valor);
+      h += '<label class="opt'+(sel?' sel':'')+'"><input type="radio" name="'+esc(q.id)+'" value="'+esc(o.valor)+'"'+(sel?' checked':'')+'><span>'+esc(o.rotulo)+'</span></label>';
+      if (o.outro) h += '<input type="text" class="outro" data-outro="'+esc(q.id)+'" placeholder="Qual?" aria-label="Especifique" value="'+esc(S.respostas[q.id+'__outro']||'')+'"'+(sel?'':' hidden')+'>';
+    });
+    h += '</div>';
+  } else {
+    var t = q.tipo==='number' ? 'number' : (q.inputTipo==='email'?'email':'text');
+    h += '<input type="'+t+'" data-in="'+esc(q.id)+'" aria-labelledby="lbl_'+esc(q.id)+'" value="'+esc(v==null?'':v)+'"'
+      + (q.min!=null?' min="'+q.min+'"':'') + (q.max!=null?' max="'+q.max+'"':'') + (t==='email'?' autocomplete="email"':'') + '>';
+  }
+  return h + '</div>';
+}
+function rPerguntas(b){
+  var h = '<h2>'+esc(b.titulo||'')+'</h2>' + (b.descricao?paras(b.descricao):'');
+  (b.questoes||[]).forEach(function(q){ if (condOk(q.condicao)) h += rQuestao(q); });
+  return h;
+}
+function rEscala(b, ne, tot){
+  var titulo = C.ocultarNomesColeta ? ('Suas percepções — parte '+(ne+1)+' de '+tot) : esc(b.nome);
+  var ctx = C.ocultarNomesColeta ? (b.contexto||'') : (b.contexto||b.descricao||'');
+  var p = pontos(), rot = (C.escala&&C.escala.rotulos)||{};
+  var h = '<h2>'+titulo+'</h2>' + (ctx?'<div class="ctx">'+esc(ctx)+'</div>':'');
+  S.ordemItens[b.id].forEach(function(iid){
+    var it = b.itens.filter(function(x){return x.id===iid;})[0]; if(!it) return;
+    var v = S.respostas[iid];
+    h += '<div class="item" data-item="'+esc(iid)+'"><div class="item-t" id="t_'+esc(iid)+'">'+esc(it.texto)+'</div>'
+       + '<div class="lk" role="radiogroup" aria-labelledby="t_'+esc(iid)+'" style="--n:'+p.length+'">';
+    p.forEach(function(x){ h += '<button type="button" role="radio" aria-checked="'+(v===x)+'" data-v="'+x+'" aria-label="'+x+(rot[x]?' – '+esc(rot[x]):'')+'">'+x+'</button>'; });
+    h += '</div><div class="anch" style="--n:'+p.length+'" aria-hidden="true">';
+    p.forEach(function(x){ h += '<span>'+esc(rot[x]||'')+'</span>'; });
+    h += '</div></div>';
+  });
+  return h;
+}
+function rRanking(b){
+  if (!Array.isArray(S.respostas[b.id])) S.respostas[b.id] = S.ordemItens[b.id].slice();
+  var lab = {}; (b.opcoes||[]).forEach(function(o){lab[o.id]=o.rotulo;});
+  var h = '<h2>'+esc(b.titulo||b.nome||'')+'</h2>'+(b.descricao?paras(b.descricao):'')+'<ol class="rk">';
+  S.respostas[b.id].forEach(function(id,i,arr){
+    h += '<li><span class="pos">'+(i+1)+'</span><span class="lbl">'+esc(lab[id])+'</span>'
+       + '<button type="button" data-up="'+i+'" aria-label="Subir"'+(i===0?' disabled':'')+'>↑</button>'
+       + '<button type="button" data-dn="'+i+'" aria-label="Descer"'+(i===arr.length-1?' disabled':'')+'>↓</button></li>';
+  });
+  return h+'</ol>';
+}
+
+/* ---------- interação ---------- */
+function bind(b){
+  var vol = document.getElementById('voltar');
+  if (vol) vol.onclick = function(){ S.pos = Math.max(0,S.pos-1); save(); render(); };
+  document.getElementById('avancar').onclick = function(){ avancar(b); };
+
+  $app.querySelectorAll('input[type=radio]').forEach(function(inp){
+    inp.onchange = function(){
+      var qid = inp.name; S.respostas[qid] = inp.value;
+      var q = acharQ(b,qid);
+      if (q){ var o = q.opcoes.filter(function(x){return String(x.valor)===inp.value;})[0];
+        if (!o || !o.outro) delete S.respostas[qid+'__outro']; }
+      save();
+      // re-render para refletir condicionais e o campo "outro"
+      render(true);
+      var re = $app.querySelector('input[name="'+qid+'"]:checked'); if (re) re.focus({preventScroll:true});
+    };
+  });
+  $app.querySelectorAll('[data-outro]').forEach(function(inp){ inp.oninput=function(){ S.respostas[inp.dataset.outro+'__outro']=inp.value; save(); }; });
+  $app.querySelectorAll('[data-in]').forEach(function(inp){ inp.oninput=function(){
+    var q = acharQ(b, inp.dataset.in), v = inp.value;
+    if (q && q.tipo==='number') v = v===''?null:Number(v);
+    S.respostas[inp.dataset.in] = v; save(); }; });
+
+  $app.querySelectorAll('.lk').forEach(function(g){
+    var item = g.closest('.item'), iid = item.dataset.item;
+    g.querySelectorAll('button').forEach(function(bt){
+      bt.onclick = function(){
+        S.respostas[iid] = Number(bt.dataset.v); save();
+        g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-checked', x===bt);});
+        item.classList.remove('miss');
+        var nx = item.nextElementSibling;
+        while (nx && nx.classList && nx.classList.contains('item') && S.respostas[nx.dataset.item]!=null) nx = nx.nextElementSibling;
+        if (nx && nx.classList && nx.classList.contains('item')) nx.scrollIntoView({behavior:'smooth',block:'center'});
+      };
+      bt.onkeydown = function(ev){
+        var bs = Array.prototype.slice.call(g.querySelectorAll('button')), i = bs.indexOf(bt);
+        if (ev.key==='ArrowRight'||ev.key==='ArrowDown'){ ev.preventDefault(); (bs[i+1]||bt).focus(); }
+        if (ev.key==='ArrowLeft'||ev.key==='ArrowUp'){ ev.preventDefault(); (bs[i-1]||bt).focus(); }
+      };
+    });
+  });
+  $app.querySelectorAll('[data-up],[data-dn]').forEach(function(bt){
+    bt.onclick = function(){ var a = S.respostas[b.id], i = Number(bt.dataset.up!=null?bt.dataset.up:bt.dataset.dn), j = bt.dataset.up!=null?i-1:i+1;
+      var t=a[i]; a[i]=a[j]; a[j]=t; save(); render(true); };
+  });
+}
+function acharQ(b,qid){ return (b.questoes||[]).filter(function(q){return q.id===qid;})[0]; }
+function erro(m){ document.getElementById('err').textContent = m; }
+
+function avancar(b){
+  if (b.tipo==='consentimento'){ S.respostas[b.id] = true; }
+  if (b.tipo==='perguntas'){
+    var falta = null, encerra = false;
+    (b.questoes||[]).forEach(function(q){
+      if (!condOk(q.condicao)) return;
+      var v = S.respostas[q.id];
+      if (q.obrigatorio && (v==null || v==='') && !falta) falta = q;
+      if (q.tipo==='single' && v!=null){
+        var o = q.opcoes.filter(function(x){return String(x.valor)===String(v);})[0];
+        if (o && o.encerra) encerra = true;
+        if (o && o.outro && q.obrigatorio && !String(S.respostas[q.id+'__outro']||'').trim() && !falta) falta = q;
+      }
+      if (q.inputTipo==='email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && !falta) { falta = q; }
+    });
+    if (falta){ erro(falta.inputTipo==='email' && S.respostas[falta.id] ? 'Confira o e-mail digitado (ou deixe o campo em branco).' : 'Responda: “'+falta.pergunta+'”'); var el=$app.querySelector('[data-q="'+falta.id+'"]'); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    if (encerra) return concluir('encerrado_triagem');
+  }
+  if (b.tipo==='escala'){
+    var miss = S.ordemItens[b.id].filter(function(id){return S.respostas[id]==null;});
+    if (miss.length){
+      miss.forEach(function(id){ var el=$app.querySelector('[data-item="'+id+'"]'); if(el) el.classList.add('miss'); });
+      erro(miss.length===1 ? 'Falta 1 afirmação nesta parte.' : 'Faltam '+miss.length+' afirmações nesta parte.');
+      var f=$app.querySelector('.item.miss'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); return;
+    }
+  }
+  S.pos++; save(); render();
+}
+
+/* ---------- escores ---------- */
+function calcular(){
+  var mx = maxP(), mn = minP(), med = {};
+  C.blocos.forEach(function(b){
+    if (b.tipo!=='escala') return;
+    med[b.id] = round2(mean(b.itens.map(function(it){ var v = S.respostas[it.id]; if (v==null) return null; return it.reverso ? (mx+mn-v) : v; })));
+  });
+  var R = C.relatorio || {};
+  (R.dimensoes||[]).forEach(function(d){
+    if ((d.componentes||[]).length>1 || (d.componentes||[])[0]!==d.id)
+      med[d.id] = round2(mean(d.componentes.map(function(c){return med[c];})));
+  });
+  return med;
+}
+function faixaDe(v){
+  var F = (C.relatorio&&C.relatorio.faixas) || [{id:'alto',rotulo:'Mais alto',min:5.5},{id:'intermediario',rotulo:'Intermediário',min:3.5},{id:'baixo',rotulo:'Mais baixo',min:-Infinity}];
+  F = F.slice().sort(function(a,b){return b.min-a.min;});
+  for (var i=0;i<F.length;i++) if (v >= F[i].min - 1e-9) return F[i];
+  return F[F.length-1];
+}
+function dimensoes(med){
+  var R = C.relatorio || {};
+  if (R.dimensoes && R.dimensoes.length) return R.dimensoes.map(function(d){
+    var v = d.componentes.length===1 ? med[d.componentes[0]] : med[d.id];
+    return {id:d.id, nome:d.nome, definicao:d.definicao, valor:v, niveis:d.niveis||{},
+            subs: d.componentes.length>1 ? d.componentes.map(function(c){var bb=blocoById(c);return {nome:bb?bb.nome:c, valor:med[c]};}) : []};
+  });
+  // fallback genérico do runbook: cada bloco de escala é uma dimensão, com interpretacao {baixo, moderado, alto}
+  return C.blocos.filter(function(b){return b.tipo==='escala';}).map(function(b){
+    var it = b.interpretacao||{}, n = {};
+    if (it.alto) n.alto = {texto:it.alto}; if (it.moderado||it.intermediario) n.intermediario = {texto:it.moderado||it.intermediario}; if (it.baixo) n.baixo={texto:it.baixo};
+    return {id:b.id, nome:b.nome, definicao:b.descricao, valor:med[b.id], niveis:n, subs:[]};
+  });
+}
+
+/* ---------- envio ---------- */
+function payload(status, med){
+  return { estudo:C.estudo, respondente_id:S.rid, status:status, token:C.token||'',
+    respostas:S.respostas, medias:med,
+    meta:{ versao:C.versao, escala:[minP(),maxP()], ordemBlocos:S.ordem.filter(function(id){var b=blocoById(id);return b&&b.tipo==='escala';}),
+           ordemItens:S.ordemItens, inicio:S.inicio, fim:S.fim,
+           duracao_seg: Math.round((new Date(S.fim)-new Date(S.inicio))/1000) } };
+}
+function backendConfigurado(){
+  var u = C.driveScriptUrl||''; var sb = C.supabase||{};
+  return (/^https:\/\/script\.google\.com\//.test(u)) || (sb.url && sb.anonKey);
+}
+function enviar(p){
+  var u = C.driveScriptUrl||'', sb = C.supabase||{};
+  if (/^https:\/\/script\.google\.com\//.test(u)){
+    return fetch(u,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p),redirect:'follow'})
+      .then(function(r){return r.text();})
+      .then(function(t){ var j; try{ j=JSON.parse(t);}catch(e){ throw new Error('resposta inesperada do servidor'); } if(!j.ok) throw new Error(j.error||'falha'); return j; });
+  }
+  if (sb.url && sb.anonKey){
+    var q = JSON.parse(JSON.stringify(p)); delete q.token;
+    return fetch(sb.url.replace(/\/$/,'')+'/rest/v1/'+(sb.tabela||'respostas_instrumento'),{method:'POST',
+      headers:{'Content-Type':'application/json','apikey':sb.anonKey,'Authorization':'Bearer '+sb.anonKey,'Prefer':'return=minimal'},
+      body:JSON.stringify({estudo:q.estudo,respondente_id:q.respondente_id,payload:q})})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return {ok:true}; });
+  }
+  return Promise.reject(new Error('sem-backend'));
+}
+function baixar(nome, conteudo, tipo){
+  var blob = new Blob([conteudo],{type:tipo}); var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = nome; document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+function baixarJsonFallback(p){
+  var q = JSON.parse(JSON.stringify(p)); delete q.token;
+  baixar(C.estudo+'_'+S.rid+'.json', JSON.stringify(q,null,2), 'application/json');
+}
+function setStatus(cls, msg){ var el=document.getElementById('status'); if(el){ el.className='status '+cls; el.textContent=msg; } }
+function tentarEnvio(p, silencioso){
+  if (S.enviado) return Promise.resolve();
+  if (!backendConfigurado()){ setStatus('warn','Modo de teste: nenhum backend configurado — a resposta não foi enviada.'); return Promise.resolve(); }
+  setStatus('', 'Enviando suas respostas…');
+  return enviar(p).then(function(){ S.enviado = true; setStatus('ok','Respostas registradas com sucesso. Obrigado!'); clearSave(); })
+    .catch(function(){
+      setStatus('warn','Não conseguimos enviar automaticamente. Baixamos um arquivo com suas respostas — por favor, envie-o ao pesquisador.');
+      if (!silencioso) baixarJsonFallback(p);
+    });
+}
+
+/* ---------- conclusão ---------- */
+function concluir(status){
+  S.fim = new Date().toISOString(); save();
+  document.getElementById('barra').style.width = '100%';
+  document.getElementById('contador').textContent = '';
+  var med = calcular(), p = payload(status, med);
+  if (status!=='completo'){
+    $app.innerHTML = '<h2>Obrigado</h2>'+paras(C.mensagemEncerramento||'Sua participação se encerra aqui.')+'<div class="status" id="status" hidden></div>';
+    if (C.registrarEncerrados && backendConfigurado()) enviar(p).then(function(){S.enviado=true;}).catch(function(){}).then(clearSave); else clearSave();
+    return;
+  }
+  var rep = relatorioHTML(med);
+  $app.innerHTML = '<div class="status" id="status"></div>' + rep
+    + '<div class="btns no-print"><button class="btn" type="button" id="imprimir">Imprimir / salvar PDF</button>'
+    + '<button class="btn primary" type="button" id="baixarRel">Baixar meu relatório</button></div>';
+  document.getElementById('imprimir').onclick = function(){ window.print(); };
+  document.getElementById('baixarRel').onclick = function(){
+    baixar('relatorio_'+C.estudo+'.html', relatorioStandalone(rep), 'text/html');
+    if (C.envioManual) tentarEnvio(p, false);
+  };
+  if (!C.envioManual) tentarEnvio(p, false);
+  else setStatus('', 'Clique em “Baixar meu relatório” para concluir e registrar suas respostas.');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function relatorioHTML(med){
+  var dims = dimensoes(med), mx = maxP(), mn = minP();
+  var data = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  var h = '<div class="rep-h"><div class="eyebrow">Relatório individual · '+esc(data)+'</div><h1>'+esc(C.titulo)+'</h1>'
+        + (C.relatorioAbertura?'<p>'+esc(C.relatorioAbertura)+'</p>':'') + '</div>';
+  dims.forEach(function(d){
+    if (d.valor==null) return;
+    var f = faixaDe(d.valor), n = d.niveis[f.id]||{}, pct = 100*(d.valor-mn)/(mx-mn);
+    h += '<section class="dim"><div class="dim-top"><div><h3>'+esc(d.nome)+'</h3>'
+       + '<span class="badge b-'+esc(f.id)+'">'+esc(f.rotulo)+(f.faixaTexto?' · '+esc(f.faixaTexto):'')+'</span></div>'
+       + '<div class="score">'+fmt(d.valor)+' <small>/ '+mx+'</small></div></div>'
+       + '<div class="bar" role="img" aria-label="Posição '+fmt(d.valor)+' numa escala de '+mn+' a '+mx+'"><i style="left:'+pct.toFixed(1)+'%"></i></div>'
+       + '<div class="ticks"><span>'+mn+'</span><span>'+((mn+mx)/2)+'</span><span>'+mx+'</span></div>';
+    if (n.label) h += '<div class="lbl-n">'+esc(n.label)+'</div>';
+    if (n.texto) h += '<p>'+esc(n.texto)+'</p>';
+    if (d.subs.length){
+      h += '<div class="subs">';
+      d.subs.forEach(function(s){ h += '<div class="sub"><span>'+esc(s.nome)+'</span><div class="track"><i style="width:'+(100*(s.valor-mn)/(mx-mn)).toFixed(1)+'%"></i></div><b>'+fmt(s.valor)+'</b></div>'; });
+      h += '</div>';
+    }
+    if (d.definicao) h += '<p class="def">'+esc(d.definicao)+'</p>';
+    h += '</section>';
+  });
+  var R = C.relatorio||{}, val = dims.filter(function(d){return d.valor!=null;});
+  if (R.reflexao && val.length>1){
+    var ord = val.slice().sort(function(a,b){return b.valor-a.valor;}), forte = ord[0], fraca = ord[ord.length-1];
+    var txt = R.reflexao.replace(/\{forte\}/g,forte.nome).replace(/\{fraca\}/g,fraca.nome).replace(/\{vforte\}/g,fmt(forte.valor)).replace(/\{vfraca\}/g,fmt(fraca.valor));
+    if (forte.valor===fraca.valor) txt = 'Suas quatro dimensões ficaram no mesmo patamar ('+fmt(forte.valor)+'). O que, na sua organização, seria a primeira alavanca para tirar uma delas desse equilíbrio — e qual arrastaria as demais?';
+    h += '<div class="refl"><h3>Para refletir</h3><p>'+esc(txt)+'</p></div>';
+  }
+  if (C.agradecimento) h += '<p class="muted">'+esc(C.agradecimento)+'</p>';
+  return h;
+}
+function relatorioStandalone(corpo){
+  var css = document.querySelector('style').textContent;
+  return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+    + '<title>Relatório individual</title><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">'
+    + '<style>'+css+'</style></head><body><div class="wrap"><main class="card">'+corpo
+    + '</main><div class="foot" style="display:block">'+esc(C.rodape||'')+'</div></div></body></html>';
+}
+
+/* ---------- boot ---------- */
+carregar().then(function(cfg){
+  C = cfg; KEY = 'hubpesq_'+C.estudo+'_'+C.versao;
+  document.title = C.titulo || 'Pesquisa';
+  document.getElementById('eyebrow').textContent = C.eyebrow || '';
+  document.getElementById('rodape').textContent = C.rodape || '';
+  try { var s = JSON.parse(localStorage.getItem(KEY)||'null'); if (s && s.rid && !s.fim) S = s; } catch(e){}
+  if (!S) S = novoEstado();
+  save(); render();
+}).catch(function(err){
+  $app.innerHTML = '<h2>Não foi possível carregar a pesquisa</h2><p>'+esc(err.message||err)+'</p><p class="muted">Verifique se o config.json está ao lado deste arquivo ou se o link contém o parâmetro ?e= correto.</p>';
+});
+})();
+</script>
+</body>
+</html>

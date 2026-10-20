@@ -1,0 +1,739 @@
+{
+  "metodo": "survey",
+  "estudo": "ia-mkt-estudo2",
+  "titulo": "Diagnóstico: inovação, IA e resultados em marketing",
+  "eyebrow": "Pesquisa acadêmica · PPGA/UNINOVE",
+  "intro": "Leva de 10 a 12 minutos. Participação voluntária e anônima. Ao final, você recebe um relatório individual.",
+  "versao": "v1.0",
+  "rodape": "Pesquisa de mestrado do Programa de Pós-Graduação em Administração da UNINOVE.",
+  "aleatorizarBlocos": true,
+  "aleatorizarItens": true,
+  "ocultarNomesColeta": true,
+  "registrarEncerrados": true,
+  "escala": {
+    "pontos": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "rotulos": {
+      "1": "Discordo totalmente",
+      "4": "Neutro",
+      "7": "Concordo totalmente"
+    }
+  },
+  "blocos": [
+    {
+      "id": "consent",
+      "tipo": "consentimento",
+      "titulo": "Convite para participar",
+      "texto": "Este diagnóstico oferece uma visão clara sobre como sua organização articula inovação, inteligência artificial, implementação de estratégias e resultados. Ao final, você recebe um relatório individual mostrando onde está a força da sua organização e onde há oportunidade de crescimento.\n\nSuas respostas contribuem para uma pesquisa de mestrado na UNINOVE sobre estratégias de marketing orientadas por inteligência artificial. O tempo estimado é de 10 a 12 minutos.\n\nA participação é voluntária e anônima: não pedimos nome, nem o nome da sua organização. Você pode interromper a qualquer momento, sem qualquer prejuízo. Os dados serão tratados de forma agregada, exclusivamente para fins acadêmicos.",
+      "rotuloAceite": "Li e concordo em participar"
+    },
+    {
+      "id": "triagem",
+      "tipo": "perguntas",
+      "titulo": "Participação",
+      "descricao": null,
+      "condicao": null,
+      "questoes": [
+        {
+          "id": "triagem_q1",
+          "tipo": "single",
+          "pergunta": "Você está ou esteve envolvido(a) com a formulação e/ou implementação das estratégias de marketing em sua organização?",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "lider",
+              "rotulo": "Sim, como líder",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "gestor",
+              "rotulo": "Sim, como gestor",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "participante",
+              "rotulo": "Sim, como participante",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "nao",
+              "rotulo": "Não estou envolvido(a)",
+              "encerra": true,
+              "outro": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "info_instrucoes",
+      "tipo": "info",
+      "titulo": "Como responder",
+      "condicao": null,
+      "texto": "A seguir você verá afirmações sobre a organização em que atua (ou atuou mais recentemente). Para cada uma, indique seu grau de concordância de 1 a 7:\n\n1 = Discordo totalmente · 2–3 = discordo, com nuances · 4 = neutro, a afirmação é verdadeira em parte · 5–6 = concordo, com limitações · 7 = Concordo totalmente.\n\nNão há respostas certas ou erradas. O que importa é a sua percepção."
+    },
+    {
+      "id": "INV",
+      "tipo": "escala",
+      "nome": "Inovatividade",
+      "descricao": "Medida em que a organização acolhe novas ideias, busca ativamente inovações e percebe o risco como elemento constitutivo do aprendizado, não como obstáculo paralisante.",
+      "contexto": "Considere o ambiente da sua organização e como nele a inovação é percebida, incentivada ou desestimulada.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "INV_1",
+          "texto": "A inovação, quando baseada em resultados de pesquisa, é prontamente aceita em nossa organização.",
+          "reverso": false
+        },
+        {
+          "id": "INV_2",
+          "texto": "A gestão busca ativamente ideias inovadoras.",
+          "reverso": false
+        },
+        {
+          "id": "INV_3",
+          "texto": "As pessoas são criticadas por ideias novas que não funcionam.",
+          "reverso": true
+        },
+        {
+          "id": "INV_4",
+          "texto": "A inovação é percebida como arriscada demais para ser implementada rapidamente.",
+          "reverso": true
+        }
+      ]
+    },
+    {
+      "id": "INF",
+      "tipo": "escala",
+      "nome": "Infraestrutura de IA",
+      "descricao": "Ativos tecnológicos que habilitam ou limitam o uso de inteligência artificial: sistemas, serviços e arquiteturas disponíveis.",
+      "contexto": "Considere os sistemas, serviços e arquiteturas tecnológicas disponíveis em sua organização.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "INF_1",
+          "texto": "Nossa organização possui serviços e arquiteturas de gestão de dados para IA.",
+          "reverso": false
+        },
+        {
+          "id": "INF_2",
+          "texto": "Nossa organização possui serviços de comunicação em rede e em nuvem.",
+          "reverso": false
+        },
+        {
+          "id": "INF_3",
+          "texto": "Nossa organização possui portfólio de aplicações e serviços de IA (ex.: Microsoft Cognitive Services, Google Cloud Vision).",
+          "reverso": false
+        },
+        {
+          "id": "INF_4",
+          "texto": "Nossa organização possui operações e serviços de infraestrutura de IA (ex.: servidores, processadores de grande escala, monitores de desempenho).",
+          "reverso": false
+        },
+        {
+          "id": "INF_5",
+          "texto": "Nossa organização possui infraestrutura de IA para garantir a segurança dos dados de ponta a ponta com tecnologia de última geração.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "TO",
+      "tipo": "escala",
+      "nome": "Articulação da IA com o negócio",
+      "descricao": "Se a IA é vista como instrumento estratégico: clareza sobre como gera valor, integração ao planejamento e compreensão pelas lideranças.",
+      "contexto": "Considere como a inteligência artificial é tratada no planejamento e pelas lideranças da sua organização.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "TO_1",
+          "texto": "Desenvolvemos uma visão clara sobre como a IA contribui para o valor do negócio.",
+          "reverso": false
+        },
+        {
+          "id": "TO_2",
+          "texto": "Integramos o planejamento estratégico de negócios ao planejamento de IA.",
+          "reverso": false
+        },
+        {
+          "id": "TO_3",
+          "texto": "Capacitamos as áreas funcionais e a alta gestão a compreender o valor dos investimentos em IA.",
+          "reverso": false
+        },
+        {
+          "id": "TO_4",
+          "texto": "Estabelecemos um processo de planejamento de IA eficaz e flexível e desenvolvemos um plano de IA robusto.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "PP",
+      "tipo": "escala",
+      "nome": "Postura proativa em IA",
+      "descricao": "Capacidade de experimentar, aprender e evoluir no uso de IA, num ambiente onde novas formas de operação são testadas de forma estruturada.",
+      "contexto": "Considere como sua organização experimenta e se atualiza no uso de inteligência artificial.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "PP_1",
+          "texto": "Somos capazes de experimentar e continuamos experimentando novas ferramentas e técnicas de IA conforme necessário.",
+          "reverso": false
+        },
+        {
+          "id": "PP_2",
+          "texto": "Temos um clima organizacional favorável à experimentação de novas formas de uso da IA.",
+          "reverso": false
+        },
+        {
+          "id": "PP_3",
+          "texto": "Buscamos constantemente novas formas de aprimorar a eficácia do uso da IA.",
+          "reverso": false
+        },
+        {
+          "id": "PP_4",
+          "texto": "Nos mantemos constantemente atualizados sobre as inovações em IA.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "EA",
+      "tipo": "escala",
+      "nome": "Ênfase em ativos e capacidades de marketing",
+      "descricao": "Investimento em construção de marca, influência sobre canais, visibilidade promocional e posicionamento em segmentos de valor.",
+      "contexto": "Considere como sua organização investe em marca, canais, promoção e posicionamento de mercado.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "EA_1",
+          "texto": "Nossa organização investe na construção e consolidação da imagem de marca.",
+          "reverso": false
+        },
+        {
+          "id": "EA_2",
+          "texto": "Nossa organização exerce forte influência sobre os canais de distribuição.",
+          "reverso": false
+        },
+        {
+          "id": "EA_3",
+          "texto": "Os gastos com promoção e publicidade da nossa organização estão acima da média do setor.",
+          "reverso": false
+        },
+        {
+          "id": "EA_4",
+          "texto": "Nossa organização atua em segmentos de mercado com preços mais elevados.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "CR",
+      "tipo": "escala",
+      "nome": "Comprometimento de recursos",
+      "descricao": "Se a alocação de pessoas, orçamento e tempo foi suficiente para executar a estratégia sem improviso.",
+      "contexto": "Pense na implementação mais recente de uma estratégia de marketing de que você participou ou acompanhou na sua organização. Nas afirmações abaixo, \"o projeto\" refere-se a essa implementação.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "CR_1",
+          "texto": "O número de pessoas trabalhando no projeto foi considerado suficiente para sua execução.",
+          "reverso": false
+        },
+        {
+          "id": "CR_2",
+          "texto": "Recursos financeiros adequados foram alocados para a implementação da estratégia de marketing.",
+          "reverso": false
+        },
+        {
+          "id": "CR_3",
+          "texto": "O tempo dedicado pelos gestores ao acompanhamento do projeto foi considerado suficiente.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "PO",
+      "tipo": "escala",
+      "nome": "Performance organizacional",
+      "descricao": "Percepção sobre os resultados alcançados em dimensões críticas de desempenho: lucro, market share, ROI, crescimento, inovação de produtos e qualidade.",
+      "contexto": "Considere como sua organização se posiciona diante da concorrência em termos de resultados. Não são necessárias métricas oficiais — vale a sua percepção.",
+      "formato": "likert",
+      "fixarItens": false,
+      "fixarPosicao": false,
+      "condicao": null,
+      "itens": [
+        {
+          "id": "PO_1",
+          "texto": "Nossa organização alcança suas metas de lucro.",
+          "reverso": false
+        },
+        {
+          "id": "PO_2",
+          "texto": "Nossa organização alcança suas metas de participação de mercado.",
+          "reverso": false
+        },
+        {
+          "id": "PO_3",
+          "texto": "Nossa organização obtém retorno adequado sobre os investimentos realizados (ROI).",
+          "reverso": false
+        },
+        {
+          "id": "PO_4",
+          "texto": "Nossa organização apresenta crescimento superior ao dos concorrentes.",
+          "reverso": false
+        },
+        {
+          "id": "PO_5",
+          "texto": "Nossa organização desenvolve um número satisfatório de novos produtos e serviços.",
+          "reverso": false
+        },
+        {
+          "id": "PO_6",
+          "texto": "Nossa organização oferece produtos e serviços de alta qualidade.",
+          "reverso": false
+        },
+        {
+          "id": "PO_7",
+          "texto": "Nossa organização tem sucesso no desenvolvimento de novos produtos e serviços.",
+          "reverso": false
+        }
+      ]
+    },
+    {
+      "id": "perfil",
+      "tipo": "perguntas",
+      "titulo": "Perfil do respondente",
+      "descricao": "Para finalizar, algumas perguntas de caracterização.",
+      "condicao": null,
+      "questoes": [
+        {
+          "id": "D1_genero",
+          "tipo": "single",
+          "pergunta": "Gênero",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "masc",
+              "rotulo": "Masculino",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "fem",
+              "rotulo": "Feminino",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "nao_inf",
+              "rotulo": "Prefiro não informar",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "D2_idade",
+          "tipo": "single",
+          "pergunta": "Faixa etária",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "ate24",
+              "rotulo": "Menos de 25 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "25_34",
+              "rotulo": "25–34 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "35_44",
+              "rotulo": "35–44 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "45_54",
+              "rotulo": "45–54 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "55mais",
+              "rotulo": "55 anos ou mais",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "D3_escolaridade",
+          "tipo": "single",
+          "pergunta": "Nível de escolaridade",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "grad",
+              "rotulo": "Graduação",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "esp_mba",
+              "rotulo": "Especialização/MBA",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "mest",
+              "rotulo": "Mestrado",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "dout",
+              "rotulo": "Doutorado",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "D4_cargo",
+          "tipo": "single",
+          "pergunta": "Cargo atual",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "analista",
+              "rotulo": "Analista/Especialista",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "coord",
+              "rotulo": "Coordenador/Supervisor",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "gerente",
+              "rotulo": "Gerente",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "diretor",
+              "rotulo": "Diretor",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "clevel",
+              "rotulo": "C-level/Presidente",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "D5_setor",
+          "tipo": "single",
+          "pergunta": "Setor da organização",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "tec",
+              "rotulo": "Tecnologia",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "varejo",
+              "rotulo": "Varejo",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "fin",
+              "rotulo": "Serviços financeiros",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "saude",
+              "rotulo": "Saúde",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "educ",
+              "rotulo": "Educação",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "ind",
+              "rotulo": "Indústria",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "outro",
+              "rotulo": "Outro",
+              "encerra": false,
+              "outro": true
+            }
+          ]
+        },
+        {
+          "id": "D6_porte",
+          "tipo": "single",
+          "pergunta": "Porte da organização (número de funcionários)",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "micro",
+              "rotulo": "Micro (até 9)",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "pequena",
+              "rotulo": "Pequena (10–49)",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "media",
+              "rotulo": "Média (50–249)",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "grande",
+              "rotulo": "Grande (250 ou mais)",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "D7_anos_ia",
+          "tipo": "single",
+          "pergunta": "Há quantos anos sua organização utiliza IA em processos de marketing?",
+          "obrigatorio": true,
+          "condicao": null,
+          "opcoes": [
+            {
+              "valor": "menos1",
+              "rotulo": "Menos de 1 ano",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "1_2",
+              "rotulo": "1–2 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "3_4",
+              "rotulo": "3–4 anos",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "5mais",
+              "rotulo": "5 anos ou mais",
+              "encerra": false,
+              "outro": false
+            },
+            {
+              "valor": "nao_usa",
+              "rotulo": "Ainda não utiliza",
+              "encerra": false,
+              "outro": false
+            }
+          ]
+        },
+        {
+          "id": "email",
+          "tipo": "text",
+          "inputTipo": "email",
+          "pergunta": "Quer receber os achados gerais da pesquisa? Deixe seu e-mail (opcional). Ele é guardado separado das respostas e não identifica você na análise.",
+          "obrigatorio": false,
+          "condicao": null
+        }
+      ]
+    }
+  ],
+  "hipoteses": [],
+  "mensagemEncerramento": "Obrigado pelo interesse! Este estudo é direcionado a pessoas envolvidas com a formulação ou a implementação de estratégias de marketing. Por isso, sua participação se encerra aqui.",
+  "agradecimento": "Muito obrigado por sua participação neste estudo. Suas respostas ajudam a compreender como a inovatividade, quando modulada pela competência em inteligência artificial, transforma a qualidade dos processos de implementação estratégica e gera resultados tangíveis no desempenho organizacional. Os resultados serão compartilhados com a comunidade acadêmica e, quando possível, com os respondentes interessados em conhecer os achados.",
+  "relatorioAbertura": "Este é o retrato da sua organização a partir das suas respostas. Cada score é a média dos itens da dimensão, numa escala de 1 a 7 — quanto maior, mais forte a dimensão. Itens formulados de modo inverso já foram recodificados.",
+  "relatorio": {
+    "faixas": [
+      {
+        "id": "alto",
+        "rotulo": "Mais alto",
+        "min": 5.5,
+        "faixaTexto": "5,5 a 7,0"
+      },
+      {
+        "id": "intermediario",
+        "rotulo": "Intermediário",
+        "min": 3.5,
+        "faixaTexto": "3,5 a 5,4"
+      },
+      {
+        "id": "baixo",
+        "rotulo": "Mais baixo",
+        "min": 1,
+        "faixaTexto": "1,0 a 3,4"
+      }
+    ],
+    "dimensoes": [
+      {
+        "id": "inovatividade",
+        "nome": "Inovatividade",
+        "componentes": [
+          "INV"
+        ],
+        "definicao": "Medida em que a organização acolhe novas ideias, busca ativamente inovações e percebe o risco como elemento constitutivo do aprendizado, não como obstáculo paralisante.",
+        "niveis": {
+          "alto": {
+            "label": "Cultura de Inovação Ativa",
+            "texto": "Sua organização cultiva um ambiente onde a inovação é procurada. Ideias baseadas em pesquisa são absorvidas rapidamente; a gestão busca ativamente propostas novas; o risco é compreendido como parte do aprendizado. Isso costuma indicar uma organização que evolui continuamente. A questão que se coloca aqui é: essa inovatividade será orientada pela competência em IA, ou gerará dispersão no processo de implementação? A resposta a essa pergunta determinará se o dinamismo se converte em resultados."
+          },
+          "intermediario": {
+            "label": "Inovação Parcial",
+            "texto": "Sua organização reconhece o valor da inovação, mas com reservas. Algumas ideias novas são acolhidas; outras encontram resistência. O risco pode ser percebido como excessivo em certas situações. Essa postura é comum em organizações que experimentam, mas ainda guardam cautela. A competência em IA pode atuar aqui de forma estruturante: oferecendo critérios para definir quais inovações merecem implementação e quais devem ser descartadas, convertendo cautela em discernimento."
+          },
+          "baixo": {
+            "label": "Resistência à Inovação",
+            "texto": "Sua organização sente desconforto diante de ideias novas. Inovações são percebidas como arriscadas; críticas podem recair sobre quem propõe ideias que falham. A competência em IA, nesse contexto, torna-se ainda mais crítica: ela pode ser a ponte entre a resistência ao novo e a necessidade de transformação que o mercado exige."
+          }
+        }
+      },
+      {
+        "id": "competencia_ia",
+        "nome": "Competência em Inteligência Artificial",
+        "componentes": [
+          "INF",
+          "TO",
+          "PP"
+        ],
+        "definicao": "Capacidade multifacetada de possuir os ativos técnicos, compreender o valor estratégico da IA e estar em permanente experimentação com novas aplicações.",
+        "niveis": {
+          "alto": {
+            "label": "Competência Integrada em IA",
+            "texto": "Sua organização dispõe de infraestrutura robusta em dados, nuvem e aplicações de IA; a liderança a compreende como ferramenta de valor, integrada ao negócio; há um clima organizacional favorável à experimentação contínua. Isso costuma significar que a IA está sendo mobilizada como ativo estratégico. Quando combinada com alta inovatividade, essa competência torna-se o alicerce para que novas ideias se convertam em implementação coerente. Quando combinada com inovatividade moderada, ela amplifica o impacto das poucas ideias que são perseguidas."
+          },
+          "intermediario": {
+            "label": "Competência Emergente em IA",
+            "texto": "Sua organização começou a construir capacidades em IA. Talvez a infraestrutura esteja presente em partes, a compreensão estratégica em desenvolvimento, a experimentação ainda inicial. Essa posição é comum em organizações em transição. O foco aqui deve ser em consolidar a integração das três subdimensões, pois uma infraestrutura sem clareza estratégica permanece inerte; uma compreensão estratégica sem experimentos permanece abstrata."
+          },
+          "baixo": {
+            "label": "Competência Incipiente em IA",
+            "texto": "Sua organização ainda não mobilizou IA de forma integrada. Pode haver ausência de infraestrutura, falta de clareza sobre como IA gera valor, ou clima organizacional não favorável à experimentação. A urgência aqui é dupla: sem competência em IA, mesmo a inovatividade elevada encontra limites. A transformação digital não é opcional; é reorientadora de como a própria inovatividade é processada."
+          }
+        }
+      },
+      {
+        "id": "implementacao",
+        "nome": "Implementação da Estratégia de Marketing",
+        "componentes": [
+          "EA",
+          "CR"
+        ],
+        "definicao": "Capacidade de transformar a estratégia em ação por meio da mobilização de recursos (pessoas, tempo, orçamento) e da ativação de ativos de marketing (marca, canais, investimento promocional, segmentação).",
+        "niveis": {
+          "alto": {
+            "label": "Implementação Intensiva",
+            "texto": "Sua organização investe significativamente em ativos e capacidades de marketing: construção de marca, influência sobre canais, investimento promocional acima da média, segmentação de valor. Os recursos de pessoas, tempo e orçamento foram adequados. Isso costuma indicar que a estratégia saiu do papel. Quando a implementação é forte e a competência em IA também é elevada, a organização dispõe de estrutura para converter inovatividade em resultados. O risco aqui é diferente: é o de mover muito rápido sem aprender."
+          },
+          "intermediario": {
+            "label": "Implementação Moderada",
+            "texto": "Sua organização aloca recursos moderados à implementação. Há investimentos em marketing, mas nem sempre acima da média; recursos foram considerados suficientes, mas com algumas restrições. Essa posição reflete uma execução que avança, mas que carrega limitações de escala ou velocidade. A competência em IA pode compensar essa moderação permitindo que cada recurso investido seja aplicado com maior precisão."
+          },
+          "baixo": {
+            "label": "Implementação Constrita",
+            "texto": "Sua organização implementa com recursos restritos. Investimentos em ativos de marketing podem ser pontuais; recursos de pessoas ou tempo podem ter sido insuficientes. Isso costuma significar que a estratégia encontra limites na execução. A origem não está em falta de intenção, mas em restrições operacionais que afetam o alcance do planejamento. Aqui, a competência em IA torna-se ferramenta de otimização: fazer mais com menos por meio da automação, da análise de dados e da decisão orientada por algoritmos."
+          }
+        }
+      },
+      {
+        "id": "performance",
+        "nome": "Performance Organizacional",
+        "componentes": [
+          "PO"
+        ],
+        "definicao": "Percepção sobre os resultados alcançados em lucro, market share, ROI, crescimento, inovação de produtos e qualidade.",
+        "niveis": {
+          "alto": {
+            "label": "Performance Superior",
+            "texto": "Sua organização percebe-se como tendo sucesso nas dimensões críticas de desempenho. Metas de lucro, market share e ROI são alcançadas; o crescimento é visto como superior ao dos concorrentes; inovação de produtos ocorre de forma satisfatória e bem-sucedida. Isso costuma indicar que as três dimensões anteriores operaram em sinergia: a inovatividade foi orientada pela competência em IA, que foi então traduzida em implementação vigorosa. O resultado é performance tangível."
+          },
+          "intermediario": {
+            "label": "Performance Adequada",
+            "texto": "Sua organização alcança seus objetivos de desempenho, mas com variações. Algumas metas são alcançadas; outras não completamente. O crescimento é moderado; a inovação de produtos é satisfatória. Essa posição é comum em organizações que competem num mercado desafiador e que precisam refinar suas estratégias para ampliar a performance. A questão que emerge é: qual das três dimensões anteriores está limitando a performance? O diagnóstico diferenciado de inovatividade, competência em IA e implementação oferece o mapa dessa limitação."
+          },
+          "baixo": {
+            "label": "Performance Limitada",
+            "texto": "Sua organização enfrenta limitações no alcance de suas metas de desempenho. Lucro, market share ou ROI podem estar abaixo das expectativas; crescimento é modesto; inovação de produtos é lenta. Vale notar que essa percepção sinaliza oportunidades para revisão tanto das estratégias de marketing quanto dos processos de inovatividade e competência em IA que as sustentam. A performance limitada é frequentemente sintoma, não causa. O tratamento requer diagnóstico da raiz."
+          }
+        }
+      }
+    ],
+    "reflexao": "Na sua leitura, {forte} é a dimensão mais desenvolvida da sua organização ({vforte}), e {fraca} a menos desenvolvida ({vfraca}). Que decisão concreta — de pessoas, orçamento, dados ou processo — faria a força em {forte} puxar {fraca} para cima, em vez de as duas seguirem caminhos separados?"
+  },
+  "driveScriptUrl": "https://script.google.com/macros/s/AKfycbxTGgnHHlIYFkqlUvKTIJr9t7GAXA8f_IDMbBsgzVgMm1jGv6-6NnZ98GJjmvce_cd_/exec",
+  "token": "ia-mkt-LdShgoqC-t5_2Hj2Gba4v6NI",
+  "envioManual": false,
+  "supabase": {
+    "url": "",
+    "anonKey": "",
+    "tabela": "respostas_instrumento"
+  }
+}
