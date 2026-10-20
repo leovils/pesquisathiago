@@ -4,7 +4,7 @@
   "titulo": "Diagnóstico: inovação, IA e resultados em marketing",
   "eyebrow": "Pesquisa acadêmica · PPGA/UNINOVE",
   "intro": "Leva de 10 a 12 minutos. Participação voluntária e anônima. Ao final, você recebe um relatório individual.",
-  "versao": "v1.0",
+  "versao": "v1.1",
   "rodape": "Pesquisa de mestrado do Programa de Pós-Graduação em Administração da UNINOVE.",
   "aleatorizarBlocos": true,
   "aleatorizarItens": true,
@@ -471,6 +471,12 @@
               "rotulo": "C-level/Presidente",
               "encerra": false,
               "outro": false
+            },
+            {
+              "valor": "outro",
+              "rotulo": "Outro",
+              "encerra": false,
+              "outro": true
             }
           ]
         },
